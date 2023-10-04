@@ -6,7 +6,7 @@ import {
 
 import './App.css';
 import Header from './infrastructure/components/Header/Header';
-import { Home } from './infrastructure/views/index';
+import { Home, PodcastDetail } from './infrastructure/views/index';
 
 function App() {
 
@@ -15,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/podcast/:id" element={<PodcastDetail />} />
       </Routes>
     </BrowserRouter >
   );
