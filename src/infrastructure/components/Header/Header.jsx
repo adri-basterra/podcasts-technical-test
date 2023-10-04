@@ -1,6 +1,7 @@
 import React from "react";
-import "./Header.styles.scss";
 import { Link } from "react-router-dom";
+
+import "./Header.styles.scss";
 
 function Header() {
   const HOME_ROUTE = "/";

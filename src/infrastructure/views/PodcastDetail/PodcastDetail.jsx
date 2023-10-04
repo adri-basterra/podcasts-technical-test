@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import * as Utils from "./../../../domain/utils/utils";
 import "./PodcastDetail.styles.scss";
+import EpisodeDetail from "../../components/EpisodeDetail/EpisodeDetail";
 
 // TODO: export to service
 const apiHost = "https://itunes.apple.com";
@@ -11,10 +12,11 @@ const podcastEpisodeFiltersURL =
   "country=US&media=podcast&entity=podcastEpisode&limit=100";
 
 function PodcastDetail() {
-  const { id } = useParams();
+  const { id, episodeId } = useParams();
 
   const [podcastDetail, setPodcastDetail] = useState([]);
   const [episodes, setEpisodes] = useState([]);
+  const [episodeDetail, setEpisodeDetail] = useState({});
 
   // TODO: create service
   useEffect(() => {
@@ -31,10 +33,16 @@ function PodcastDetail() {
         const podcast = detail.results.find(
           (res) => res.wrapperType === "track"
         );
+        if (episodeId) findEpisode(episodeId, episodeList);
         setPodcastDetail(podcast);
         setEpisodes(episodeList);
       });
   }, []);
+
+  function findEpisode(id, episodes) {
+    const episode = episodes.find((episode) => episode.trackId == id);
+    setEpisodeDetail(episode);
+  }
 
   const EpisodesDataElement = () => {
     return episodes.map((episode) => (
@@ -65,21 +73,34 @@ function PodcastDetail() {
           </aside>
         )}
         <section className="episodes">
-          <h2 className="episodes__quantity">Episodes: {episodes.length}</h2>
-          <div className="episodes__table__container">
-            <table className="episodes__table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Date</th>
-                  <th>Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <EpisodesDataElement />
-              </tbody>
-            </table>
-          </div>
+          {episodeId && episodeDetail ? (
+            <EpisodeDetail
+              title={episodeDetail.trackName}
+              url={episodeDetail.previewUrl}
+              desc={episodeDetail.description}
+              type={`${episodeDetail.episodeContentType}/${episodeDetail.episodeFileExtension}`}
+            />
+          ) : (
+            <>
+              <h2 className="episodes__quantity">
+                Episodes: {episodes.length}
+              </h2>
+              <div className="episodes__table__container">
+                <table className="episodes__table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Date</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <EpisodesDataElement />
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </section>
       </div>
     </>
