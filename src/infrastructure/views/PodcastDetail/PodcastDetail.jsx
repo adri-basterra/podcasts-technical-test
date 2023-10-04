@@ -63,10 +63,15 @@ function PodcastDetail() {
       <div className="podcast__container">
         {podcastDetail && (
           <aside className="podcast">
-            <img className="podcast__image" src={podcastDetail.artworkUrl600} />
-            <hr />
-            <h4 className="podcast__title">{podcastDetail.collectionName}</h4>
-            <p className="podcast__author">by {podcastDetail.artistName}</p>
+            <Link to={`/podcast/${id}`} className="podcast__link">
+              <img
+                className="podcast__image"
+                src={podcastDetail.artworkUrl600}
+              />
+              <hr />
+              <h4 className="podcast__title">{podcastDetail.collectionName}</h4>
+              <p className="podcast__author">by {podcastDetail.artistName}</p>
+            </Link>
             <hr />
             <h5>Description:</h5>
             <p>{podcastDetail.podcastDescription}</p>
