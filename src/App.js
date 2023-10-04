@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Header from './infrastructure/components/Header/Header';
 
 function App() {
 
@@ -15,7 +16,10 @@ function App() {
   ]);
 
   return (
-    <RouterProvider router={router} />
+    <>
+      <Header />
+      <RouterProvider router={router} />
+    </>
   );
 }
 

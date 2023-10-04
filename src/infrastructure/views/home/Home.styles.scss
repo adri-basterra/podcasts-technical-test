@@ -1,24 +1,40 @@
 .container {
-  padding: 0 1rem;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.header {
-  border-bottom: 1px solid grey;
+.search {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-bottom: 2rem;
 
-  &__title {
-    color: #6892a9;
+  &__quantity {
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.75rem;
+    background-color: #2e70a3;
+    font-weight: bolder;
+  }
+
+  &__input {
+    width: 15rem;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: grey;
+    border: 1px solid lightgray;
   }
 }
 
 .podcasts {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-gap: 1rem 2rem;
+  grid-gap: 5rem 3rem;
 
   &__link {
     text-decoration: none;
+    height: 100%;
   }
 }

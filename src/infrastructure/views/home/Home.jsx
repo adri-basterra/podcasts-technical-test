@@ -5,7 +5,8 @@ import PodcastPreview from "../../components/PodcastPreview/PodcastPreview";
 import "./Home.styles.scss";
 
 function Home() {
-  const PAGE_TITLE = "Podcaster";
+  const searchPlaceholder = "Filter podcasts...";
+
   const [podcastList, setPodcastList] = useState([]);
 
   useEffect(() => {
@@ -14,10 +15,7 @@ function Home() {
       { method: "GET" }
     )
       .then((response) => response.json())
-      .then((list) => {
-        setPodcastList(list.feed.entry);
-        console.log(list.feed.entry[0]);
-      });
+      .then((list) => setPodcastList(list.feed.entry));
   }, []);
 
   const LoadingElement = () => {
@@ -42,8 +40,9 @@ function Home() {
 
   return (
     <div className="container">
-      <div className="header">
-        <h2 className="header__title">{PAGE_TITLE}</h2>
+      <div className="search">
+        <span className="search__quantity">100</span>
+        <input className="search__input" placeholder={searchPlaceholder} />
       </div>
       <div className="podcasts">
         {!podcastList ? <LoadingElement /> : <PodcastListElements />}
