@@ -1,4 +1,4 @@
-import Home from './domains/home/Home';
+import { Home } from './infrastructure/views/index';
 import './App.css';
 import {
   createBrowserRouter,

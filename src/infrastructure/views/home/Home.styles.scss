@@ -1,0 +1,24 @@
+.container {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  border-bottom: 1px solid grey;
+
+  &__title {
+    color: #6892a9;
+  }
+}
+
+.podcasts {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 1rem 2rem;
+
+  &__link {
+    text-decoration: none;
+  }
+}
