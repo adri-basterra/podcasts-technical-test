@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import * as Utils from "../../../domain/utils/utils";
-
 import PodcastPreview from "../../components/PodcastPreview/PodcastPreview";
+import { PodcastService } from "../../services/Podcast.service";
+
 import "./Home.styles.scss";
 
 function Home() {
@@ -13,17 +14,11 @@ function Home() {
   const [search, setSearch] = useState("");
   const [quantity, setQuantity] = useState(0);
 
-  // TODO: create service
   useEffect(() => {
-    fetch(
-      `https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json`,
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((list) => {
-        setQuantity(list.feed.entry.length);
-        setPodcastList(list.feed.entry);
-      });
+    PodcastService.getAllPodcasts().then((podcasts) => {
+      setPodcastList(podcasts);
+      setQuantity(podcasts.length);
+    });
   }, []);
 
   const LoadingElement = () => {
