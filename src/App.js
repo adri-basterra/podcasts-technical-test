@@ -16,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/podcast/:id" element={<PodcastDetail />} />
+        <Route path="/podcast/:id/episode/:episodeId" element={<PodcastDetail />} />
       </Routes>
     </BrowserRouter >
   );

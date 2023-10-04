@@ -1,0 +1,14 @@
+.episodeDetail {
+  box-shadow: 0 4px 8px lightgray;
+  padding: 0.75rem 1rem;
+  margin-top: 0;
+
+  &__title {
+    margin-top: 0;
+  }
+
+  &__audio {
+    padding: 1rem 0;
+    width: 100%;
+  }
+}
