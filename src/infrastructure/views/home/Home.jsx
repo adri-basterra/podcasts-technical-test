@@ -30,11 +30,15 @@ function Home() {
     <div>Loading...</div>;
   };
 
+  function applySearch(newSearch) {
+    const filtered = applyFilters(podcastList, newSearch);
+    setQuantity(filtered.length);
+    setSearch(newSearch);
+  }
+
   function applyFilters(podcastList, search) {
     if (!search) return podcastList;
-    const filtered = podcastList.filter(searchCoincidences);
-    setQuantity(filtered.length);
-    return filtered;
+    return podcastList.filter(searchCoincidences);
   }
 
   const searchCoincidences = (podcast) => {
@@ -67,7 +71,7 @@ function Home() {
         <input
           className="search__input"
           placeholder={searchPlaceholder}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => applySearch(e.target.value)}
         />
       </div>
       <div className="podcasts">
