@@ -1,25 +1,22 @@
-import { Home } from './infrastructure/views/index';
-import './App.css';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
+  Route,
+  Routes,
 } from "react-router-dom";
+
+import './App.css';
 import Header from './infrastructure/components/Header/Header';
+import { Home } from './infrastructure/views/index';
 
 function App() {
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home />,
-    },
-  ]);
-
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <RouterProvider router={router} />
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter >
   );
 }
 
