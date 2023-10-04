@@ -11,14 +11,19 @@ function Home() {
 
   const [podcastList, setPodcastList] = useState([]);
   const [search, setSearch] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
+  // TODO: create service
   useEffect(() => {
     fetch(
       `https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json`,
       { method: "GET" }
     )
       .then((response) => response.json())
-      .then((list) => setPodcastList(list.feed.entry));
+      .then((list) => {
+        setQuantity(list.feed.entry.length);
+        setPodcastList(list.feed.entry);
+      });
   }, []);
 
   const LoadingElement = () => {
@@ -27,7 +32,9 @@ function Home() {
 
   function applyFilters(podcastList, search) {
     if (!search) return podcastList;
-    return podcastList.filter(searchCoincidences);
+    const filtered = podcastList.filter(searchCoincidences);
+    setQuantity(filtered.length);
+    return filtered;
   }
 
   const searchCoincidences = (podcast) => {
@@ -56,7 +63,7 @@ function Home() {
   return (
     <div className="container">
       <div className="search">
-        <span className="search__quantity">100</span>
+        <span className="search__quantity">{quantity}</span>
         <input
           className="search__input"
           placeholder={searchPlaceholder}
