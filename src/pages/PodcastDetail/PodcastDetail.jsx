@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import * as Utils from "../../utils/utils";
-import EpisodeDetail from "../../components/EpisodeDetail/EpisodeDetail";
+import { EpisodeDetail, NotFound } from "../../components";
 import { PodcastService } from "../../services/Podcast.service";
 
 import "./PodcastDetail.styles.scss";
@@ -23,10 +23,12 @@ function PodcastDetail() {
       setPodcastDetail(podcast);
       setEpisodes(episodeList);
     });
-  }, []);
+  }, [id, episodeId]);
 
   function findEpisode(id, episodes) {
-    const episode = episodes.find((episode) => episode.trackId == id);
+    const episode = episodes.find(
+      (episode) => parseInt(episode.trackId) === parseInt(id)
+    );
     setEpisodeDetail(episode);
   }
 
@@ -49,12 +51,13 @@ function PodcastDetail() {
   };
 
   return (
-    <>
-      <div className="podcast__container">
-        {podcastDetail && (
+    <div className="podcast__container">
+      {podcastDetail ? (
+        <>
           <aside className="podcast">
             <Link to={`/podcast/${id}`} className="podcast__link">
               <img
+                alt=""
                 className="podcast__image"
                 src={podcastDetail.artworkUrl600}
               />
@@ -66,39 +69,45 @@ function PodcastDetail() {
             <h5>Description:</h5>
             <p>{podcastDetail.podcastDescription}</p>
           </aside>
-        )}
-        <section className="episodes">
-          {episodeId && episodeDetail ? (
-            <EpisodeDetail
-              title={episodeDetail.trackName}
-              url={episodeDetail.previewUrl}
-              desc={episodeDetail.description}
-              type={`${episodeDetail.episodeContentType}/${episodeDetail.episodeFileExtension}`}
-            />
-          ) : (
-            <>
-              <h2 className="episodes__quantity">
-                Episodes: {episodes.length}
-              </h2>
-              <div className="episodes__table__container">
-                <table className="episodes__table">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Date</th>
-                      <th>Duration</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <EpisodesDataElement />
-                  </tbody>
-                </table>
-              </div>
-            </>
-          )}
-        </section>
-      </div>
-    </>
+          <section className="episodes">
+            {episodeId ? (
+              episodeDetail ? (
+                <EpisodeDetail
+                  title={episodeDetail.trackName}
+                  url={episodeDetail.previewUrl}
+                  desc={episodeDetail.description}
+                  type={`${episodeDetail.episodeContentType}/${episodeDetail.episodeFileExtension}`}
+                />
+              ) : (
+                <NotFound element="Episode" />
+              )
+            ) : (
+              <>
+                <h2 className="episodes__quantity">
+                  Episodes: {episodes.length}
+                </h2>
+                <div className="episodes__table__container">
+                  <table className="episodes__table">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <EpisodesDataElement />
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </section>
+        </>
+      ) : (
+        <NotFound element="Podcast" />
+      )}
+    </div>
   );
 }
 

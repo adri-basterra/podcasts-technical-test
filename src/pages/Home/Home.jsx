@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import * as Utils from "../../utils/utils";
-import PodcastPreview from "../../components/PodcastPreview/PodcastPreview";
+import { PodcastPreview } from "../../components";
 import { PodcastService } from "../../services/Podcast.service";
 
 import "./Home.styles.scss";

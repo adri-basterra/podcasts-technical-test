@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import Header from './components/Header/Header';
-import { Home, PodcastDetail } from './pages/index';
+import { Header } from './components';
+import { Home, PodcastDetail } from './pages';
 
 function App() {
   const aDayInMiliseconds = 24 * 60 * 60 * 1000;
