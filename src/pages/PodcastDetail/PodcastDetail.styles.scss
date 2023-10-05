@@ -1,0 +1,75 @@
+.podcast__container {
+  padding: 2rem 5rem;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10%;
+
+  .podcast {
+    box-shadow: 0 4px 8px lightgray;
+    padding: 0.5rem;
+    height: 100%;
+    width: 30%;
+
+    &__link {
+      text-decoration: none;
+    }
+
+    &__image {
+      padding: 1rem 0.5rem;
+      margin: auto;
+      height: 11rem;
+      display: flex;
+    }
+
+    &__title {
+      padding: 0 1rem;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    &__author {
+      padding: 0 1rem;
+      margin-top: 0;
+    }
+
+    &__desc {
+      font-style: italic;
+      margin-top: 0.5rem;
+
+      &__title {
+        margin-bottom: 0;
+      }
+    }
+
+    hr {
+      border: 1px solid lightgrey;
+    }
+  }
+
+  .episodes {
+    width: 100%;
+    &__quantity {
+      box-shadow: 0 4px 8px lightgray;
+      padding: 0.75rem 1rem;
+      margin-top: 0;
+    }
+
+    &__table__container {
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px lightgray;
+    }
+
+    &__table {
+      border-collapse: collapse;
+      width: 100%;
+      th,
+      td {
+        border-bottom: 1px solid grey;
+        padding: 12px;
+        text-align: left;
+      }
+    }
+  }
+}
