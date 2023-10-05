@@ -2,34 +2,48 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import * as Utils from "../../utils/utils";
-import { EpisodeDetail, NotFound } from "../../components";
+import { EpisodeDetail, NotFound, Loading } from "../../components";
 import { PodcastService } from "../../services/Podcast.service";
 
 import "./PodcastDetail.styles.scss";
 
 function PodcastDetail() {
+  const NOT_FOUND = {
+    podcast: "Podcast not found",
+    episode: "Episode not found",
+    page: "Page error encountered",
+  };
+
   const { id, episodeId } = useParams();
 
   const [podcastDetail, setPodcastDetail] = useState([]);
   const [episodes, setEpisodes] = useState([]);
   const [episodeDetail, setEpisodeDetail] = useState({});
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (!id) return;
-    PodcastService.getPodcastDetail(id).then((response) => {
-      const { podcast, episodeList } = response;
-      if (episodeId) findEpisode(episodeId, episodeList);
+    PodcastService.getPodcastDetail(id)
+      .then((response) => {
+        const { podcast, episodeList } = response;
+        if (episodeId) findEpisode(episodeId, episodeList);
 
-      setPodcastDetail(podcast);
-      setEpisodes(episodeList);
-    });
+        setPodcastDetail(podcast);
+        setEpisodes(episodeList);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
   }, [id, episodeId]);
 
   function findEpisode(id, episodes) {
+    setLoading(true);
     const episode = episodes.find(
       (episode) => parseInt(episode.trackId) === parseInt(id)
     );
     setEpisodeDetail(episode);
+    setLoading(false);
   }
 
   const EpisodesDataElement = () => {
@@ -49,6 +63,9 @@ function PodcastDetail() {
       );
     });
   };
+
+  if (loading) return <Loading />;
+  if (error) return <NotFound element={NOT_FOUND.page} />;
 
   return (
     <div className="podcast__container">
@@ -79,7 +96,7 @@ function PodcastDetail() {
                   type={`${episodeDetail.episodeContentType}/${episodeDetail.episodeFileExtension}`}
                 />
               ) : (
-                <NotFound element="Episode" />
+                <NotFound element={NOT_FOUND.episode} />
               )
             ) : (
               <>
@@ -105,7 +122,7 @@ function PodcastDetail() {
           </section>
         </>
       ) : (
-        <NotFound element="Podcast" />
+        <NotFound element={NOT_FOUND.podcast} />
       )}
     </div>
   );

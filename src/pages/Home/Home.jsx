@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import * as Utils from "../../utils/utils";
-import { PodcastPreview } from "../../components";
+import { PodcastPreview, Loading } from "../../components";
 import { PodcastService } from "../../services/Podcast.service";
+import * as Utils from "../../utils/utils";
 
 import "./Home.styles.scss";
 
@@ -11,19 +11,21 @@ function Home() {
   const SEARCH_PLACEHOLDER = "Filter podcasts...";
 
   const [podcastList, setPodcastList] = useState([]);
-  const [search, setSearch] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    PodcastService.getAllPodcasts().then((podcasts) => {
-      setPodcastList(podcasts);
-      setQuantity(podcasts.length);
-    });
+    PodcastService.getAllPodcasts()
+      .then((podcasts) => {
+        setPodcastList(podcasts);
+        setQuantity(podcasts.length);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
   }, []);
-
-  const LoadingElement = () => {
-    <div>Loading...</div>;
-  };
 
   function applySearch(newSearch) {
     const filtered = applyFilters(podcastList, newSearch);
@@ -61,6 +63,9 @@ function Home() {
     ));
   };
 
+  if (loading) return <Loading />;
+  if (error) return;
+
   return (
     <div className="container">
       <div className="search">
@@ -72,7 +77,7 @@ function Home() {
         />
       </div>
       <div className="podcasts">
-        {!podcastList ? <LoadingElement /> : <PodcastListElements />}
+        {!podcastList ? <Loading /> : <PodcastListElements />}
       </div>
     </div>
   );

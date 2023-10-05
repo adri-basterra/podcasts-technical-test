@@ -8,7 +8,7 @@ function NotFound({ element }) {
 
   return (
     <div className="notFound">
-      <h2 className="notFound__title">{element ?? ""} not found</h2>
+      <h2 className="notFound__title">{element ?? ""}</h2>
       <img className="notFound__image" alt="" src={IMAGE404_SOURCE} />
       <p></p>
     </div>

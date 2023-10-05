@@ -21,7 +21,7 @@ describe('NotFound', () => {
   test('renders correct element', () => {
     render(<NotFound element={ELEMENT} />);
     const emptyTitle = screen.getByRole("heading");
-    expect(emptyTitle).toHaveTextContent(`${ELEMENT} not found`);
+    expect(emptyTitle).toHaveTextContent(ELEMENT);
   });
 
 })
