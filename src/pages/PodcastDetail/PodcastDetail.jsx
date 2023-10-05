@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import * as Utils from "../../../domain/utils/utils";
+import * as Utils from "../../utils/utils";
 import EpisodeDetail from "../../components/EpisodeDetail/EpisodeDetail";
 import { PodcastService } from "../../services/Podcast.service";
 

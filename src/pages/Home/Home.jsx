@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import * as Utils from "../../../domain/utils/utils";
+import * as Utils from "../../utils/utils";
 import PodcastPreview from "../../components/PodcastPreview/PodcastPreview";
 import { PodcastService } from "../../services/Podcast.service";
 
 import "./Home.styles.scss";
 
 function Home() {
-  const searchPlaceholder = "Filter podcasts...";
+  const SEARCH_PLACEHOLDER = "Filter podcasts...";
 
   const [podcastList, setPodcastList] = useState([]);
   const [search, setSearch] = useState("");
@@ -65,7 +65,7 @@ function Home() {
         <span className="search__quantity">{quantity}</span>
         <input
           className="search__input"
-          placeholder={searchPlaceholder}
+          placeholder={SEARCH_PLACEHOLDER}
           onChange={(e) => applySearch(e.target.value)}
         />
       </div>

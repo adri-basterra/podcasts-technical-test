@@ -59,7 +59,7 @@ This is a project made for a front-end technical test. Looking for a simple desi
 
 </div>
 
-- **Netlify** is used for the creation of serverless functions.
+- **React** is used as main framework for the web page.
 
 <br>
 
