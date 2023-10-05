@@ -83,8 +83,9 @@ function PodcastDetail() {
               <p className="podcast__author">by {podcastDetail.artistName}</p>
             </Link>
             <hr />
-            <h5>Description:</h5>
-            <p>{podcastDetail.podcastDescription}</p>
+            <h5 className="podcast__desc__title">Description:</h5>
+            {/* FIXME: no description was found in podcastDetail object */}
+            <p className="podcast__desc">{podcastDetail.primaryGenreName}</p>
           </aside>
           <section className="episodes">
             {episodeId ? (
