@@ -15,9 +15,11 @@ function PodcastDetail() {
   const [episodeDetail, setEpisodeDetail] = useState({});
 
   useEffect(() => {
+    if (!id) return;
     PodcastService.getPodcastDetail(id).then((response) => {
       const { podcast, episodeList } = response;
       if (episodeId) findEpisode(episodeId, episodeList);
+
       setPodcastDetail(podcast);
       setEpisodes(episodeList);
     });

@@ -37,6 +37,8 @@ function Home() {
   }
 
   const searchCoincidences = (podcast) => {
+    if (!podcast) return false;
+
     const authorName = podcast["im:artist"].label;
     const podcastTitle = podcast["im:name"].label;
     const matchesWith = Utils.searchMatches(search);
